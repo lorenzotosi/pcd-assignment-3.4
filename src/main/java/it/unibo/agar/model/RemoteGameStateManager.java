@@ -10,4 +10,6 @@ public interface RemoteGameStateManager extends Remote {
     void setPlayerDirection(final String playerId, final double dx, final double dy) throws RemoteException;
 
     void registerPlayer(String playerId) throws RemoteException;
+
+    void leaveGame(String playerId) throws RemoteException;
 }

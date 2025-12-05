@@ -54,4 +54,9 @@ public class ClientGameStateManager implements GameStateManager {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void removePlayer(String playerId) {
+
+    }
 }

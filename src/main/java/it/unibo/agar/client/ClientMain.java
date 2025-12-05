@@ -4,6 +4,8 @@ import it.unibo.agar.model.RemoteGameStateManager;
 import it.unibo.agar.view.LocalView;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -24,7 +26,22 @@ public class ClientMain {
 
             SwingUtilities.invokeLater(() -> {
                 LocalView view = new LocalView(clientManager, playerId);
-                // ... resto del codice uguale a prima ...
+                view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                view.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        try {
+                            System.out.println("Chiusura in corso... rimozione dal server.");
+                            // Chiamata remota per rimuovere il player
+                            remoteManager.leaveGame(playerId);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        } finally {
+                            // Chiudi l'applicazione
+                            System.exit(0);
+                        }
+                    }
+                });
                 view.setVisible(true);
 
                 new java.util.Timer().scheduleAtFixedRate(new java.util.TimerTask() {

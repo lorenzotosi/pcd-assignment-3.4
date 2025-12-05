@@ -116,4 +116,16 @@ public class DefaultGameStateManager implements GameStateManager {
         this.playerDirections.put(playerId, Position.ZERO);
     }
 
+    @Override
+    public void removePlayer(String playerId) {
+        var playerOpt = world.getPlayerById(playerId);
+        if (playerOpt.isPresent()) {
+            // Rimuovi dal mondo usando il metodo esistente removePlayers che accetta una lista
+            this.world = this.world.removePlayers(java.util.List.of(playerOpt.get()));
+
+            // Rimuovi anche la direzione dalla mappa per pulizia
+            this.playerDirections.remove(playerId);
+        }
+    }
+
 }

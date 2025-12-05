@@ -35,4 +35,10 @@ public class RemoteGameStateManagerImpl extends UnicastRemoteObject implements R
         System.out.println(">>> NUOVA CONNESSIONE: Il giocatore " + playerId + " è entrato nel gioco!");
         localManager.addPlayer(playerId);
     }
+
+    @Override
+    public synchronized void leaveGame(String playerId) throws RemoteException {
+        System.out.println("<<< DISCONNESSIONE: Il giocatore " + playerId + " ha lasciato il gioco.");
+        localManager.removePlayer(playerId);
+    }
 }

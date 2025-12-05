@@ -5,4 +5,5 @@ public interface GameStateManager {
     void setPlayerDirection(final String playerId, final double dx, final double dy);
     void tick();
     void addPlayer(String playerId);
+    void removePlayer(String playerId);
 }
