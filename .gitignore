@@ -43,3 +43,4 @@ bin/
 .idea/vcs.xml
 .idea/misc.xml
 .idea/.name
+.idea/*
