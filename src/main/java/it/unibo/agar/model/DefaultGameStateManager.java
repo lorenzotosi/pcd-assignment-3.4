@@ -98,4 +98,22 @@ public class DefaultGameStateManager implements GameStateManager {
                 playerDirections.putIfAbsent(p.getId(), Position.ZERO));
     }
 
+    // Aggiungi questo metodo
+    @Override
+    public void addPlayer(String playerId) {
+        // Se il giocatore esiste già, non facciamo nulla
+        if (world.getPlayerById(playerId).isPresent()) return;
+
+        // Crea un nuovo player in posizione casuale (usando la logica esistente)
+        Player newPlayer = new Player(playerId,
+                new java.util.Random().nextInt(world.getWidth()),
+                new java.util.Random().nextInt(world.getHeight()),
+                120.0); // Massa iniziale
+
+        // Aggiorna il mondo
+        this.world = this.world.addPlayer(newPlayer);
+        // Inizializza la direzione
+        this.playerDirections.put(playerId, Position.ZERO);
+    }
+
 }

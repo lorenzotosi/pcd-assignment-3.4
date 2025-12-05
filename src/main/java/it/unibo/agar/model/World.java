@@ -1,10 +1,11 @@
 package it.unibo.agar.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class World {
+public class World implements Serializable {
     private final int width;
     private final int height;
     private final List<Player> players;
@@ -59,5 +60,12 @@ public class World {
                 .filter(f -> !foodsToRemove.contains(f)) // Assumes Food has proper equals/hashCode or relies on object identity if not overridden
                 .collect(Collectors.toList());
         return new World(width, height, players, newFoods);
+    }
+
+    // Aggiungi questo metodo alla classe World
+    public World addPlayer(Player player) {
+        List<Player> newPlayers = new java.util.ArrayList<>(this.players);
+        newPlayers.add(player);
+        return new World(width, height, newPlayers, foods);
     }
 }
